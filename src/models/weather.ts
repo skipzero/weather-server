@@ -1,0 +1,69 @@
+import mongoose, { Schema, Document} from 'mongoose';
+// import { Weather } from ./interfaces
+
+export interface Weather extends Document {
+  id: string;
+  date: Date;
+  winddir: number;
+  windspeedmph: number;
+  windgustmph: number;
+  maxdailygust: number;
+  tempf: number;
+  hourlyrainin: number;
+  eventrainin: number;
+  dailyrainin: number;
+  weeklyrainin: number;
+  monthlyrainin: number;
+  totalrainin: number;
+  humidity: number;
+  baromabsin: number;
+  tempinf: number;
+  humidityin: number;
+  uv: number;
+  solarradiation: number;
+  feelslike: number;
+  dewPoint: number;
+  baromrelin: number;
+  windspdmph_avg10m: number;
+  lastRain: Date,
+  macAddress: string
+}
+
+const WeatherSchema: Schema = new mongoose.Schema({
+  date: {type: Date, reqquired: true, index: true},
+  winddir: {type: Number, required: true},
+  windspeedmph: {type: Number, required: true},
+  windgustmph:{type: Number, required: true},
+  maxdailygust: {type: Number, required: true},
+  tempf: {type: Number, required: true},
+  hourlyrainin:{type: Number, required: true},
+  eventrainin:{type: Number, required: true},
+  dailyrainin:{type: Number, required: true},
+  weeklyrainin:{type: Number, required: true},
+  monthlyrainin:{type: Number, required: true},
+  totalrainin:{type: Number, required: true},
+  humidity:{type: Number, required: true},
+  baromabsin:{type: Number, required: true},
+  tempinf:{type: Number, required: true},
+  humidityin:{type: Number, required: true},
+  uv:{type: Number, required: true},
+  solarradiation:{type: Number, required: true},
+  feelslike:{type: Number, required: true},
+  dewPoint:{type: Number, required: true},
+  baromrelin:{type: Number, required: true},
+  windspdmph_avg10m:{type: Number, required: true},
+  lastRain:{type: Date, required: true},
+  macAddress:{type: String},
+  authentication: {
+    password: {type: String, required: true, select: false},
+    salt: {type: String, select: false},
+    token: {type: String, select: false}
+
+  }
+})
+
+export const WeatherModel =  mongoose.model<Weather>('Weather', WeatherSchema);
+
+export const getWeather = () => WeatherModel.find();
+
+export const getWeatherById = (id: string) => WeatherModel.findOneById(id);

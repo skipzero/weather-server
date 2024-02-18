@@ -1,0 +1,11 @@
+{
+  "complierOptions": {
+    "module": "NodeNext",
+    "modeuleResolution": "node",
+    "baseUrl": "src",
+    "outDir": "dist",
+    "sourceMsy": true,
+    "noImplicitAny": true
+  },
+  "include": ["src/**/*"]
+}
