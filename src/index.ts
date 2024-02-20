@@ -7,6 +7,8 @@ import cors from 'cors';
 import dotenv from 'dotenv'
 import mongoose from 'mongoose'
 
+import router from './routes';
+
 dotenv.config()
 const app = express()
 const port = process.env.PORT
@@ -18,6 +20,8 @@ app.use(cors({
 app.use(compression())
 app.use(bodyParser.json())
 app.use(cookieParser())
+
+app.use('/', router)
 
 const server = http.createServer(app)
 

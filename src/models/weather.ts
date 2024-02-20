@@ -64,6 +64,8 @@ const WeatherSchema: Schema = new mongoose.Schema({
 
 export const WeatherModel =  mongoose.model<Weather>('Weather', WeatherSchema);
 
-export const getWeather = () => WeatherModel.find();
-
-export const getWeatherById = (id: string) => WeatherModel.findOneById(id);
+export const getAllWeather = () => WeatherModel.find();
+export const getWeatherById = (id: string) => WeatherModel.findOne({ id });
+export const createNewWeather = (values: Record<string, number>) => new WeatherModel(values).save().then(weather => weather.toObject())
+export const deleteWeatherById = (id: string) => WeatherModel.findOneAndDelete({ _id: id});
+export const updateWeather = (id: string, values: Record<string, number>) => WeatherModel.findOneAndUpdate({ id, values })
