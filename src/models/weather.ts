@@ -69,3 +69,5 @@ export const getWeatherById = (id: string) => WeatherModel.findOne({ id });
 export const createNewWeather = (values: Record<string, number>) => new WeatherModel(values).save().then(weather => weather.toObject())
 export const deleteWeatherById = (id: string) => WeatherModel.findOneAndDelete({ _id: id});
 export const updateWeather = (id: string, values: Record<string, number>) => WeatherModel.findOneAndUpdate({ id, values })
+
+export const startRecording = () =>

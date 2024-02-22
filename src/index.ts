@@ -11,7 +11,7 @@ import router from './routes';
 
 dotenv.config()
 const app = express()
-const port = process.env.PORT
+const PORT = process.env.PORT
 const mongoDB_URI: string = process.env.MONGODB_URI!;
 app.use(cors({
   credentials: true
@@ -20,13 +20,15 @@ app.use(cors({
 app.use(compression())
 app.use(bodyParser.json())
 app.use(cookieParser())
-
+app.get('/', (req, res) => {
+  res.send('HELLO Silly')
+})
 app.use('/', router)
 
-const server = http.createServer(app)
+console.log('===========', process.env)
 
-server.listen(port, () => {
-  console.log(`listening on port ${port}`)
+app.listen(PORT, () => {
+  console.log(`listening on port ${PORT}`)
 })
 
 mongoose.Promise = Promise
