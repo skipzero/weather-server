@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document} from 'mongoose';
+import AmbientWeatherAPI from 'ambient-weather-api';
 // import { Weather } from ./interfaces
 
 export interface Weather extends Document {
@@ -70,4 +71,26 @@ export const createNewWeather = (values: Record<string, number>) => new WeatherM
 export const deleteWeatherById = (id: string) => WeatherModel.findOneAndDelete({ _id: id});
 export const updateWeather = (id: string, values: Record<string, number>) => WeatherModel.findOneAndUpdate({ id, values })
 
-export const startRecording = () =>
+const apiKey = process.env.API_KEY
+const api = new AmbientWeatherAPI({
+  apiKey,
+  aplicationKey: process.env.APP_KEY
+})
+
+export const startSubscription = () => {
+  api.connect()
+  api.on('connect', () => {
+    console.log('Connected to ambient weather realtime API...')
+  })
+  api.on('subscribed', data => {
+    console.log(`Connect to ${data.devices[0]}...`)
+  })
+}
+
+api.on('data', data => {
+  console.log(`our data since last data: ${data}`)
+})
+api.subscribe(apiKey)
+export const stopSubscription = () => {
+  api.unsubscribe(apiKey)
+}
