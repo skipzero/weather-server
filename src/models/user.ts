@@ -1,24 +1,26 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-const UserSchema: Schema = new mongoose.Schema({
-  username: { type: String, required: true},
-  email: { type: String, required: true},
-  authentication: {
-    password: { type: String, required: true, select: false},
-    salt: { type: String, select: false},
-    sessionToken: { type: String, select: false}
-  }
+export interface I_UserDocument extends Document {
+  username: string;
+  password: string;
+  email: string;
+}
+
+const UserSchema: Schema<I_UserDocument> = new mongoose.Schema({
+  username: { type: String, required: true, unique: true},
+  email: { type: String, required: true, unique: true},
+  password: { type: String, required: true, select: false},
 })
 
-export const UserModel = mongoose.model('User', UserSchema);
+export const User = mongoose.model('User', UserSchema);
 
-export const getUsers = UserModel.find({})
-export const getUserByEmail = (email: string) => UserModel.findOne({ email })
-export const getUserBySessionToken = (sessionToken: string) => UserModel.findOne({ 
+export const getUsers = User.find({})
+export const getUserByEmail = (email: string) => User.findOne({ email })
+export const getUserBySessionToken = (sessionToken: string) => User.findOne({ 
   'authentication.sessionToken': sessionToken
 });
-export const getUserById = (id: string) => UserModel.findById(id);
-export const createUser = (values: Record<string, any>) => new UserModel(values)
+export const getUserById = (id: string) => User.findById(id);
+export const createUser = (values: Record<string, any>) => new User(values)
   .save().then((user) => user.toObject());
-export const deleteUserById = (id: string) => UserModel.findOneAndDelete({ _id: id});
-export const updateUserById = (id: string, values: Record<string, any>) => UserModel.findByIdAndUpdate({id, values})
+export const deleteUserById = (id: string) => User.findOneAndDelete({ _id: id});
+export const updateUserById = (id: string, values: Record<string, any>) => User.findByIdAndUpdate({id, values})

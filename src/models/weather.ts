@@ -63,6 +63,9 @@ const WeatherSchema: Schema = new mongoose.Schema({
   }
 })
 
+const apiKey = process.env.API_KEY as string;
+// const appKey = process.env.APP_KEY as string;
+
 export const WeatherModel =  mongoose.model<Weather>('Weather', WeatherSchema);
 
 export const getAllWeather = () => WeatherModel.find();
@@ -71,10 +74,9 @@ export const createNewWeather = (values: Record<string, number>) => new WeatherM
 export const deleteWeatherById = (id: string) => WeatherModel.findOneAndDelete({ _id: id});
 export const updateWeather = (id: string, values: Record<string, number>) => WeatherModel.findOneAndUpdate({ id, values })
 
-const apiKey = process.env.API_KEY
 const api = new AmbientWeatherAPI({
   apiKey,
-  aplicationKey: process.env.APP_KEY
+  applicationKey: process.env.API_KEY as string,
 })
 
 export const startSubscription = () => {

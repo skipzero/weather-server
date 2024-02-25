@@ -1,11 +1,13 @@
 {
-  "complierOptions": {
-    "module": "NodeNext",
-    "modeuleResolution": "node",
-    "baseUrl": "src",
-    "outDir": "dist",
-    "sourceMsy": true,
-    "noImplicitAny": true
-  },
-  "include": ["src/**/*"]
+    "compilerOptions": {
+        "target": "es2016" ,
+        "module": "commonjs", 
+        "rootDir": "./",
+        "outDir": "./dist",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+
+        "strict": true,
+        "skipLibCheck": true
+    }
 }
