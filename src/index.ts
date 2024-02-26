@@ -24,19 +24,19 @@ app.get('/', (req, res) => {
 })
 app.use('/', router)
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.log(`listening on port ${PORT}`)
+
+
+  try {
+    await mongoose.connect(
+      MONGODB_URI as string
+    )
+    console.log('connected to database')
+  } catch (err) {
+    console.log(`Error: ${err}`)
+  }
 })
-
-try {
-  await mongoose.connect(
-    MONGODB_URI as string
-  )
-  console.log('connected to database')
-} catch (err) {
-  console.log(`Error: ${err}`)
-}
-
 // mongoose.Promise = Promise
 
 // mongoose.connect(mongoDB_URI)
