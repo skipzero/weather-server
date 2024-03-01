@@ -2,8 +2,6 @@ import express, {Application, NextFunction, Request, Response} from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import env from "./utils/config";;
-import {User} from "./models/user";
-import Note from "./models/note";
 import bcrypt from "bcrypt";
 import morgan from 'morgan';
 import createHttpError, {isHttpError} from "http-errors";
@@ -42,11 +40,6 @@ app.use(
 // Declare The PORT Like This
 const PORT: number = 8000;
 
-app.get("/", async (req, res) => {
-  const notes = await Note.find().exec()
-  res.status(200).json(notes)
-});
-
 // Listen the server
 app.listen(PORT, async () => {
   console.log(`🗄️  Server Fire on http:localhost//${PORT}`);
@@ -61,4 +54,17 @@ app.listen(PORT, async () => {
     console.log("⚠️ Error to connect Database");
   }
 });
+
+app.use((req, res, next) => {
+  next(Error('Endpoint not found'))
+})
+
+app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
+  console.error(error);
+    let errorMessage = 'An unknown error occurred'
+    if (error instanceof Error) {
+      res.status(500).json({ error: errorMessage})
+    }
+})
+
 export default app;

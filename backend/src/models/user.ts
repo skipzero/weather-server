@@ -1,26 +1,12 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, {InferSchemaType, Schema, model } from "mongoose";
 
-export interface I_UserDocument extends Document {
-  username: string;
-  password: string;
-  email: string;
-}
-
-const UserSchema: Schema<I_UserDocument> = new mongoose.Schema({
+const userSchema = new Schema({
+  userId: { type: Schema.Types.ObjectId, required: true },
   username: { type: String, required: true, unique: true},
   email: { type: String, required: true, unique: true},
   password: { type: String, required: true, select: false},
 }, {timestamps: true});
 
-export const User = mongoose.model('User', UserSchema);
+type User = InferSchemaType<typeof userSchema>;
 
-export const getUsers = User.find({})
-export const getUserByEmail = (email: string) => User.findOne({ email })
-export const getUserBySessionToken = (sessionToken: string) => User.findOne({ 
-  'authentication.sessionToken': sessionToken
-});
-export const getUserById = (id: string) => User.findById(id);
-export const createUser = (values: Record<string, any>) => new User(values)
-  .save().then((user) => user.toObject());
-export const deleteUserById = (id: string) => User.findOneAndDelete({ _id: id});
-export const updateUserById = (id: string, values: Record<string, any>) => User.findByIdAndUpdate({id, values})
+export default model<User>("User", userSchema);
