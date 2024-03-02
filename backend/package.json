@@ -2,9 +2,9 @@
   "name": "weather-server",
   "version": "1.0.0",
   "description": "backend server for ingesting socket.io real time updates and, initially, providing server side events to the react frontend.",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "start": "nodemon",
+    "start": "nodemon src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint . --ext .ts",
     "dev": "nodemon app.ts",

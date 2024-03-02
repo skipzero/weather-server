@@ -30,6 +30,8 @@ app.use(session({
   }
 }))
 
+app.use('/api/notea', notesRoutes);
+
 // Parser
 app.use(express.json());
 app.use(
