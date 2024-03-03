@@ -30,10 +30,11 @@ app.use(session({
   }
 }))
 
-app.use('/api/notea', notesRoutes);
+app.use(express.json());
+
+app.use('/api/notes', notesRoutes);
 
 // Parser
-app.use(express.json());
 app.use(
   express.urlencoded({
     extended: true,

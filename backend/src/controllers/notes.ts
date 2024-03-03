@@ -10,3 +10,17 @@ export const getNotes: RequestHandler = async (req, res, next) => {
   }
 
 }
+
+export const createNote: RequestHandler = async (req, res, next) => {
+  const {title, text, } = req.body;
+  try {
+    const newNote = await Note.create({
+      title, 
+      text
+    });
+
+    res.status(201).json(newNote);
+  } catch (err) {
+    next(err);
+  }
+}

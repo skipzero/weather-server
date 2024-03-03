@@ -2,35 +2,7 @@ import mongoose, { InferSchemaType, model, Schema} from 'mongoose';
 // import AmbientWeatherAPI from 'ambient-weather-api';
 // import { Weather } from ./interfaces
 
-// export interface Weather extends Document {
-//   id: string;
-//   date: Date;
-//   winddir: number;
-//   windspeedmph: number;
-//   windgustmph: number;
-//   maxdailygust: number;
-//   tempf: number;
-//   hourlyrainin: number;
-//   eventrainin: number;
-//   dailyrainin: number;
-//   weeklyrainin: number;
-//   monthlyrainin: number;
-//   totalrainin: number;
-//   humidity: number;
-//   baromabsin: number;
-//   tempinf: number;
-//   humidityin: number;
-//   uv: number;
-//   solarradiation: number;
-//   feelslike: number;
-//   dewPoint: number;
-//   baromrelin: number;
-//   windspdmph_avg10m: number;
-//   lastRain: Date,
-//   macAddress: string
-// }
-
-export const weatherSchema: Schema = new mongoose.Schema({
+export const weatherSchema: Schema = new Schema({
   date: {type: Date, reqquired: true, index: true},
   winddir: {type: Number, required: true},
   windspeedmph: {type: Number, required: true},
@@ -55,13 +27,12 @@ export const weatherSchema: Schema = new mongoose.Schema({
   windspdmph_avg10m:{type: Number, required: true},
   lastRain:{type: Date, required: true},
   macAddress:{type: String},
-}, { timestamps: true })
+}, { 
+  timestamps: true
+})
 
 export type Weather = InferSchemaType<typeof weatherSchema>
 export default model<Weather>("Weather", weatherSchema)
-
-
-
 
 const apiKey = process.env.API_KEY as string;
 // const appKey = process.env.APP_KEY as string;
