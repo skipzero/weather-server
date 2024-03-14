@@ -28,7 +28,7 @@ export const weatherSchema: Schema = new Schema({
   lastRain:{type: Date, required: true},
   macAddress:{type: String},
 }, { 
-  timestamps: true
+  collection: 'weather'
 })
 
 export type Weather = InferSchemaType<typeof weatherSchema>

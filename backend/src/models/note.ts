@@ -4,7 +4,10 @@ const noteSchema = new Schema({
     userId: { type: Schema.Types.ObjectId, required: true },
     title: { type: String, required: true },
     text: { type: String },
-}, { timestamps: true });
+    timestamp: { type: Number, required: true},
+}, {
+    collection: 'weatherNotes'
+});
 
 type Note = InferSchemaType<typeof noteSchema>;
 
