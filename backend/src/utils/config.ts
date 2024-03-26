@@ -1,14 +1,10 @@
-import { cleanEnv } from 'envalid'
-import { port, str } from 'envalid/dist/validators'
-import dotenv from 'dotenv'
-dotenv.config()
+import { cleanEnv, str, port } from 'envalid';
 
-
-export default cleanEnv(process.env, {
+export  const env = cleanEnv(process.env, {
+  NODE_ENV: str(),
+  PUBLIC_URL: str(),
   PORT: port(),
   MONGODB_URI: str(),
-  ACCESS_SECRET: str(),
-
-  APP_KEY: str(),
-  API_KEY: str()
+  SESSION_SECRET: str(),
 })
+

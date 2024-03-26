@@ -1,14 +1,16 @@
 import app from './app'
-import env from './utils/config'
 import mongoose from 'mongoose'
 
-const port = env.PORT
+const MONGODB_URI = process.env.MONGODB_URI as string 
+const PORT = process.env.PORT as string
 
-mongoose.connect(env.MONGODB_URI)
+const weatherDB = mongoose.connect(MONGODB_URI, {
+  dbName: 'weatherDB-oak',
+})
   .then(() =>{
-    console.log('Mongoose connected...')
-    app.listen(port, () => {
-      console.log(`server running, listening on ${port}`)
+    console.log('Mongoose connected...(server)')
+    app.listen(PORT, () => {
+      console.log(`server running, listening on ${PORT}`)
     })
   })
   .catch(err => console.error(err))

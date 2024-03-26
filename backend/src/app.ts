@@ -1,4 +1,4 @@
-import "dotenv/config";
+
 import express, { NextFunction, Request, Response } from "express";
 import notesRoutes from "./routes/notes";
 import userRoutes from "./routes/users";
@@ -7,25 +7,35 @@ import createHttpError, { isHttpError } from "http-errors";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import { requiresAuth } from "./middleware/auth";
+import dotenv from "dotenv"
 
-const mongo_uri = process.env.MOGODB_URI;
-const session_secret = process.env.SESSION_SECRET as string;
+dotenv.config()
+// import {env} from "./utils/config"
+
+const secret = process.env.SESSION_SECRET as string;
+
 const app = express();
 
 app.use(morgan("dev"));
 
 app.use(express.json());
 
-app.use(session({
-  store: MongoStore.create({
-    mongoUrl: mongo_uri,
-    ttl: 60 * 60 * 1000,
-    touchAfter: 24 * 3600,
-  }),
-  secret: session_secret,
-  resave: false,
-  saveUninitialized: false,
-}));
+ app.use(session({
+   secret,
+   resave: false,
+   saveUninitialized: false,
+   cookie: {
+    maxAge: 60 * 60 * 1000,
+   },
+   rolling: true,
+   store: MongoStore.create({
+     mongoUrl: process.env.MONGODB_URI,
+   }),
+ }));
+
+// app.use('/', (req, res) => {
+//   res.status(200).send('roots')
+// })
 
 app.use("/api/users", userRoutes);
 app.use("/api/notes", requiresAuth, notesRoutes);
