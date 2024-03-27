@@ -1,49 +1,44 @@
 import mongoose, { InferSchemaType, model, Schema} from 'mongoose';
-// import AmbientWeatherAPI from 'ambient-weather-api';
-// import { Weather } from ./interfaces
 
 export const weatherSchema: Schema = new Schema({
-  date: {type: Date, reqquired: true, index: true},
+  dateutc: {type: Date, reqquired: true, index: true},
+  tempinf:{type: Number, required: true},
+  humidityin:{type: Number, required: true},
+  baromrelin:{type: Number, required: true},
+  baromabsin:{type: Number, required: true},
+  tempf: {type: Number, required: true},
+  humidity:{type: Number, required: true},
   winddir: {type: Number, required: true},
   windspeedmph: {type: Number, required: true},
   windgustmph:{type: Number, required: true},
   maxdailygust: {type: Number, required: true},
-  tempf: {type: Number, required: true},
   hourlyrainin:{type: Number, required: true},
   eventrainin:{type: Number, required: true},
   dailyrainin:{type: Number, required: true},
   weeklyrainin:{type: Number, required: true},
   monthlyrainin:{type: Number, required: true},
   totalrainin:{type: Number, required: true},
-  humidity:{type: Number, required: true},
-  baromabsin:{type: Number, required: true},
-  tempinf:{type: Number, required: true},
-  humidityin:{type: Number, required: true},
-  uv:{type: Number, required: true},
   solarradiation:{type: Number, required: true},
+  uv:{type: Number, required: true},
+  batt_co2: {type: Number, required: true},
   feelslike:{type: Number, required: true},
   dewPoint:{type: Number, required: true},
-  baromrelin:{type: Number, required: true},
-  windspdmph_avg10m:{type: Number, required: true},
+  feelslinein: {type: Number, required: true},
+  dewpointin: {type: Number, required: true},
   lastRain:{type: Date, required: true},
-  macAddress:{type: String},
 }, { 
-  collection: 'weather'
+  collection: 'weather',
+  timestamps: true,
 })
 
-export type Weather = InferSchemaType<typeof weatherSchema>
-export default model<Weather>("Weather", weatherSchema)
+type Weather = InferSchemaType<typeof weatherSchema>;
+
+export default model<Weather>("Weather", weatherSchema);
 
 const apiKey = process.env.API_KEY as string;
 // const appKey = process.env.APP_KEY as string;
 
-export const WeatherModel =  mongoose.model<Weather>('Weather', weatherSchema);
 
-export const getAllWeather = () => WeatherModel.find();
-export const getWeatherById = (id: string) => WeatherModel.findOne({ id });
-export const createNewWeather = (values: Record<string, number>) => new WeatherModel(values).save().then(weather => weather.toObject())
-export const deleteWeatherById = (id: string) => WeatherModel.findOneAndDelete({ _id: id});
-export const updateWeather = (id: string, values: Record<string, number>) => WeatherModel.findOneAndUpdate({ id, values })
 
 // const api = new AmbientWeatherAPI({
 //   apiKey,

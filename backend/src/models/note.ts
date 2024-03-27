@@ -5,7 +5,8 @@ const noteSchema = new Schema({
     title: { type: String, required: true },
     text: { type: String },
 }, {
-    timestamps: true
+    dbName: 'notes',
+    timestamps: true,
 });
 
 type Note = InferSchemaType<typeof noteSchema>;

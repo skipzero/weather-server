@@ -1,5 +1,6 @@
 
 import express, { NextFunction, Request, Response } from "express";
+import weatherRoutes from "./routes/weather";
 import notesRoutes from "./routes/notes";
 import userRoutes from "./routes/users";
 import morgan from "morgan";
@@ -36,7 +37,7 @@ app.use(express.json());
 // app.use('/', (req, res) => {
 //   res.status(200).send('roots')
 // })
-
+app.use('/api/weather', weatherRoutes)
 app.use("/api/users", userRoutes);
 app.use("/api/notes", requiresAuth, notesRoutes);
 
