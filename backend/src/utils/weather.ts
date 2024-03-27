@@ -21,7 +21,14 @@ export const weather = () => {
     console.log(data.devices.map(getName).join(', '))
   })
   api.on('data', data => {
-    console.log(data)
+    const {
+      windspeedmph,
+      winddir,
+      windgustmph,
+      maxdailygust,
+      date,
+    } = data
+    console.log(`date: ${date}\n Wind dir: ${winddir}\n Wind speed: ${windspeedmph}\n Wind gust: ${windgustmph}`)
   })
   api.subscribe(apiKey)
 }

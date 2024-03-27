@@ -10,7 +10,9 @@ import {weatherApi} from '../utils/weather';
 export const getWeather: RequestHandler = async (req, res, next) => {
 
   try {
+    const allWeather = await Weather.find({}).exec();
     console.log('Starting weather', req.params)
+    res.status(200).json(allWeather);
     return weatherApi()
   }
   catch(err) {
@@ -18,7 +20,7 @@ export const getWeather: RequestHandler = async (req, res, next) => {
   }
 }
 
-export const getWeatherItems: RequestHandler = async (req, res, next) => {
+export const getWeatherItem: RequestHandler = async (req, res, next) => {
   const wId = req.params.weatherId;  
   try {
     if (!mongoose.isValidObjectId(wId)) {
