@@ -10,7 +10,7 @@ jobs:
       - node/install-packages:
           pkg-manager: npm
       - run:
-          command: cd backend
+          command: ls -la
           name: enter backend
       - run:
           command: npm install
