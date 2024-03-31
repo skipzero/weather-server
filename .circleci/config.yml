@@ -9,6 +9,8 @@ jobs:
       - node/install-packages:
           pkg-manager: npm
       - run:
+          command: npm install
+          name: install deps
+      - run:
           command: npm run build
-          name: Build app
-      
+          name: Build app      
