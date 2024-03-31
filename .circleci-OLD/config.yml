@@ -1,0 +1,23 @@
+version: 2.1
+orbs:
+  node: circleci/node@5.2.0
+jobs:
+  build_and_test: # this can be any name you choose
+    executor: node/default # use the default executor defined within the orb
+    steps:
+      - checkout
+      - run: ls -la
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          command: npm install
+          name: install deps
+      - run:
+          command: npm start
+          name: Build app
+
+workflows:
+  Backend-Workflow:
+    jobs:
+      - build_and_test
+    
