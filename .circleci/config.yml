@@ -13,4 +13,10 @@ jobs:
           name: install deps
       - run:
           command: npm run build
-          name: Build app      
+          name: Build app
+
+workflows:
+  Backend-Workflow:
+    jobs:
+      - build_and_test
+    
