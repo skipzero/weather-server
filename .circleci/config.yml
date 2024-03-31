@@ -1,7 +1,6 @@
 version: 2.1
 orbs:
   node: circleci/node@5.0.2
-  heroku: circleci/heroku@1.2.6
 
 jobs:
   build_and_test:
@@ -9,25 +8,13 @@ jobs:
     steps:
       - checkout
       - node/install-packages:
-          pkg-manager: yarn
+          pkg-manager: npm
       - run:
-          command: yarn test
-          name: Run tests
+          command: npm install
+          name: iinstall deps
       - run:
-          command: yarn build
-          name: Build app
-      - persist_to_workspace:
-          root: ~/project
-          paths:
-            - .
-
-  deploy: # this can be any name you choose
-    executor: heroku/default
-    steps:
-      - attach_workspace:
-          at: ~/project
-      - heroku/deploy-via-git:
-          force: true # force push when pushing to the heroku remote, see: https://devcenter.heroku.com/articles/git
+          command: npm start
+          name: Start app
 
 workflows:
   test_my_app:
