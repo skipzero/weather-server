@@ -22,7 +22,6 @@ jobs:
     steps:
       # Checkout the code as the first step.
       - checkout
-      - node/install:
       - run: npm install
 
 # Orchestrate jobs using workflows
