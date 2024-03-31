@@ -5,7 +5,6 @@ jobs:
   build_and_test: # this can be any name you choose
     executor: node/default # use the default executor defined within the orb
     steps:
-      - run: cd ./backend
       - checkout:
           path: ./backend
       - run: ls -la
