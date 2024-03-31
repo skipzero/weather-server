@@ -2,6 +2,10 @@
 # See: https://circleci.com/docs/configuration-reference
 version: 2.1
 
+
+orbs:
+  node: 'circleci/node@5.2.0'
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/jobs-steps/#jobs-overview & https://circleci.com/docs/configuration-reference/#jobs
 jobs:
@@ -18,9 +22,8 @@ jobs:
     steps:
       # Checkout the code as the first step.
       - checkout
-      - run:
-          name: "run name..."
-          command: "echo Hello, weird!"
+      - node/install:
+      - run: npm install
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
