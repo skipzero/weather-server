@@ -1,12 +1,18 @@
 import express, {Router} from 'express';
-import * as WeatherController from '../controllers/weather'
+import {
+  getWeather, 
+  getWeatherItem, 
+  startWeather, 
+  setWeather
+}  from '../controllers/weather'
+
 const router = Router();
 
-router.get('/', WeatherController.getWeather)
-router.get('/:weatherId', WeatherController.getWeatherItem);
+router.get('/', getWeather)
+router.get('/:weatherId', getWeatherItem);
 
-router.post('/', WeatherController.setWeather);
-router.get('/startWeather', WeatherController.startWeather)
+router.post('/', setWeather);
+router.get('/startWeather', startWeather)
 
 
 export default router;

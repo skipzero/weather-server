@@ -21,18 +21,81 @@ export const weather = () => {
     console.log(data.devices.map(getName).join(', '))
   })
   api.on('data', data => {
+    console.log('==============================++++')
+    console.log(data.feelsLike)
     const {
-      windspeedmph,
+      dateutc,
+      tempinf,
+      humidityin,
+      baromrelin,
+      baromabsin,
+      tempf,
+      humidity,
       winddir,
+      windspeedmph,
       windgustmph,
       maxdailygust,
+      hourlyrainin,
+      eventrainin,
+      dailyrainin,
+      weeklyrainin,
+      monthlyrainin,
+      totalrainin,
+      solarradiation,
+      uv,
+      batt_co2,
+      feelsLike,
+      dewPoint,
+      feelsLikein,
+      dewPointin,
+      lastRain,
+      tz,
       date,
     } = data
-    console.log(`date: ${date}\n Wind dir: ${winddir}\n Wind speed: ${windspeedmph}\n Wind gust: ${windgustmph}`)
+
+  
+    fetch('http://localhost:3031/api/weather/', {
+      method: 'POST',
+      headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+      dateutc,
+      tempinf,
+      humidityin,
+      baromrelin,
+      baromabsin,
+      tempf,
+      humidity,
+      winddir,
+      windspeedmph,
+      windgustmph,
+      maxdailygust,
+      hourlyrainin,
+      eventrainin,
+      dailyrainin,
+      weeklyrainin,
+      monthlyrainin,
+      totalrainin,
+      solarradiation,
+      uv,
+      batt_co2,
+      feelsLike: data.feelsLike,
+      dewPoint,
+      feelsLikein: feelsLikein,
+      dewPointin,
+      lastRain,
+      tz,
+      date,
+    })
+  })
+    console.log('enddata....')
   })
   api.subscribe(apiKey)
 }
 
-export const weatherApi = () => {
+export const weatherApi = async () => {
+  console.log('weather api called...')
   return weather();
 }

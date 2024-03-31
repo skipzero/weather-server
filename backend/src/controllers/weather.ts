@@ -11,9 +11,7 @@ export const getWeather: RequestHandler = async (req, res, next) => {
 
   try {
     const allWeather = await Weather.find({}).exec();
-    console.log('Starting weather', req.params)
     res.status(200).json(allWeather);
-    return weatherApi()
   }
   catch(err) {
     next(err)
@@ -33,6 +31,16 @@ export const getWeatherItem: RequestHandler = async (req, res, next) => {
   }
 }
 
+export const stopWeather: RequestHandler = async (req, res, next) => {
+
+  try {
+
+  }
+  catch (err) {
+    next(err)
+  }
+}
+
 export const startWeather: RequestHandler = async (req, _res, next) => {
 
   try {
@@ -44,7 +52,38 @@ export const startWeather: RequestHandler = async (req, _res, next) => {
   }
 }
 
-export const setWeather: RequestHandler = async (req, res, next) => {
+interface IWeather {
+  dateutc: number,
+  tempinf: number,
+  humidityin: number,
+  baromrelin: number,
+  baromabsin: number,
+  tempf: number,
+  humidity: number,
+  winddir: number,
+  windspeedmph: number,
+  windgustmph: number,
+  maxdailygust: number,
+  hourlyrainin: number,
+  eventrainin: number,
+  dailyrainin: number,
+  weeklyrainin: number,
+  monthlyrainin: number,
+  totalrainin: number,
+  solarradiation: number,
+  uv: number,
+  batt_co2: number,
+  feelsLike: number,
+  dewPoint:  number,
+  feelsLikein: number,
+  dewPointin: number,
+  lastRain: string,
+  tz: string,
+  date: string,
+}
+
+
+export const setWeather: RequestHandler<unknown, unknown, IWeather, unknown> = async (req, res, next) => {
   const {
     dateutc,
     tempinf,
@@ -56,7 +95,7 @@ export const setWeather: RequestHandler = async (req, res, next) => {
     winddir,
     windspeedmph,
     windgustmph,
-    maxdailygustin,
+    maxdailygust,
     hourlyrainin,
     eventrainin,
     dailyrainin,
@@ -66,11 +105,51 @@ export const setWeather: RequestHandler = async (req, res, next) => {
     solarradiation,
     uv,
     batt_co2,
-    feelslike,
-    dewpoint,
-    feelslikein,
-    dewpointin,
-    lastrain,
+    feelsLike,
+    dewPoint,
+    feelsLikein,
+    dewPointin,
+    lastRain,
+    tz,
     date,
-  } = req.params;
+  } = req.body;
+
+  try {
+
+    const newWeather = await Weather.create({
+      dateutc:dateutc,
+      tempinf: tempinf,
+      humidityin: humidityin,
+      baromrelin: baromrelin,
+      baromabsin: baromabsin,
+      tempf: tempf,
+      humidity: humidity,
+      winddir: winddir,
+      windspeedmph: windspeedmph,
+      windgustmph: windgustmph,
+      maxdailygust: maxdailygust,
+      hourlyrainin: hourlyrainin,
+      eventrainin: eventrainin,
+      dailyrainin: dailyrainin,
+      weeklyrainin: weeklyrainin,
+      monthlyrainin: monthlyrainin,
+      totalrainin: totalrainin,
+      solarradiation: solarradiation,
+      uv: uv,
+      batt_co2: batt_co2,
+      feelsLike: feelsLike,
+      dewPoint: dewPoint,
+      feelsLikein: feelsLikein,
+      dewPointin: dewPointin,
+      lastRain: lastRain,
+      tz: tz,
+      date: date,
+    })
+    console.log('===========',newWeather)
+    res.status(200).json(newWeather)
+
+  } catch (err) {
+    next(err)
+  }
 }
+

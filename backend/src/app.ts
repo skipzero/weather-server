@@ -9,9 +9,9 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import { requiresAuth } from "./middleware/auth";
 import dotenv from "dotenv"
+import { weatherApi } from "./utils/weather";
 
 dotenv.config()
-// import {env} from "./utils/config"
 
 const secret = process.env.SESSION_SECRET as string;
 
@@ -34,9 +34,14 @@ app.use(express.json());
    }),
  }));
 
+app.disable('x-powered-by');
+
+ 
 // app.use('/', (req, res) => {
 //   res.status(200).send('roots')
 // })
+app.use('/', weatherRoutes)
+
 app.use('/api/weather', weatherRoutes)
 app.use("/api/users", userRoutes);
 app.use("/api/notes", requiresAuth, notesRoutes);
@@ -56,5 +61,7 @@ app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
     }
     res.status(statusCode).json({ error: errorMessage });
 });
+
+weatherApi()
 
 export default app;
