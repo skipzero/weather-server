@@ -4,7 +4,6 @@
   "description": "backend server for ingesting socket.io real time updates and, initially, providing server side events to the react frontend.",
   "main": "index.ts",
   "private": "true",
-  "type": "module",
   "scripts": {
     "start": "node dist/server.js",
     "test": "",
