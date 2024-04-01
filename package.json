@@ -2,13 +2,13 @@
   "name": "weather-server",
   "version": "1.0.0",
   "description": "backend server for ingesting socket.io real time updates and, initially, providing server side events to the react frontend.",
-  "main": "index.ts",
+  "main": "server.ts",
   "private": "true",
   "scripts": {
     "start": "node dist/server.js",
     "test": "",
     "lint": "eslint . --ext .ts",
-    "dev": "nodemon app.ts",
+    "dev": "nodemon ./src/server.ts",
     "watch": "npx tsc -w "
   },
   "repository": {

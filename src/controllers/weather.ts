@@ -2,9 +2,7 @@ import { RequestHandler } from "express";
 import mongoose from "mongoose";
 import createHttpError from "http-errors";
 import Weather from '../models/weather'
-import AmbientWeatherAPI from 'ambient-weather-api';
 import {assertIsDefined} from '../utils/assert';
-import {weatherApi} from '../utils/weather';
 
 
 export const getWeather: RequestHandler = async (req, res, next) => {
@@ -27,27 +25,6 @@ export const getWeatherItem: RequestHandler = async (req, res, next) => {
     const weatherItems = await Weather.findOne({wId}).exec();
     res.status(200).json(weatherItems)
   } catch (err) {
-    next(err)
-  }
-}
-
-export const stopWeather: RequestHandler = async (req, res, next) => {
-
-  try {
-
-  }
-  catch (err) {
-    next(err)
-  }
-}
-
-export const startWeather: RequestHandler = async (req, _res, next) => {
-
-  try {
-    console.log('Starting weather', req.params)
-    return weatherApi()
-  }
-  catch(err) {
     next(err)
   }
 }
@@ -117,35 +94,35 @@ export const setWeather: RequestHandler<unknown, unknown, IWeather, unknown> = a
   try {
 
     const newWeather = await Weather.create({
-      dateutc:dateutc,
-      tempinf: tempinf,
-      humidityin: humidityin,
-      baromrelin: baromrelin,
-      baromabsin: baromabsin,
-      tempf: tempf,
-      humidity: humidity,
-      winddir: winddir,
-      windspeedmph: windspeedmph,
-      windgustmph: windgustmph,
-      maxdailygust: maxdailygust,
-      hourlyrainin: hourlyrainin,
-      eventrainin: eventrainin,
-      dailyrainin: dailyrainin,
-      weeklyrainin: weeklyrainin,
-      monthlyrainin: monthlyrainin,
-      totalrainin: totalrainin,
-      solarradiation: solarradiation,
-      uv: uv,
-      batt_co2: batt_co2,
-      feelsLike: feelsLike,
-      dewPoint: dewPoint,
-      feelsLikein: feelsLikein,
-      dewPointin: dewPointin,
-      lastRain: lastRain,
-      tz: tz,
-      date: date,
+      dateutc,
+      tempinf,
+      humidityin,
+      baromrelin,
+      baromabsin,
+      tempf,
+      humidity,
+      winddir,
+      windspeedmph,
+      windgustmph,
+      maxdailygust,
+      hourlyrainin,
+      eventrainin,
+      dailyrainin,
+      weeklyrainin,
+      monthlyrainin,
+      totalrainin,
+      solarradiation,
+      uv,
+      batt_co2,
+      feelsLike,
+      dewPoint,
+      feelsLikein,
+      dewPointin,
+      lastRain,
+      tz,
+      date,
     })
-    console.log('===========',newWeather)
+
     res.status(200).json(newWeather)
 
   } catch (err) {
