@@ -17,6 +17,9 @@ const secret = process.env.SESSION_SECRET as string;
 
 const app = express();
 
+const mongoUrl = process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI_PROD : process.env.MONGODB_URI_DEV;
+
+
 app.use(morgan("dev"));
 
 app.use(express.json());
@@ -30,7 +33,7 @@ app.use(express.json());
    },
    rolling: true,
    store: MongoStore.create({
-     mongoUrl: process.env.MONGODB_URI,
+     mongoUrl
    }),
  }));
 

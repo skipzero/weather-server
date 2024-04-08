@@ -17,7 +17,7 @@ export const getWeather: RequestHandler = async (req, res, next) => {
 }
 
 export const getWeatherItem: RequestHandler = async (req, res, next) => {
-  const wId = req.params.weatherId;  
+  const wId = req.params.id;  
   try {
     if (!mongoose.isValidObjectId(wId)) {
       throw createHttpError(400, 'Invalid weather ID')
@@ -55,7 +55,6 @@ interface IWeather {
   feelsLikein: number,
   dewPointin: number,
   lastRain: string,
-  tz: string,
   date: string,
 }
 
@@ -87,10 +86,10 @@ export const setWeather: RequestHandler<unknown, unknown, IWeather, unknown> = a
     feelsLikein,
     dewPointin,
     lastRain,
-    tz,
     date,
   } = req.body;
-
+  console.log('===WEATHER CONTROLLER===')
+  console.log(JSON.stringify(req.body, null, 2))
   try {
 
     const newWeather = await Weather.create({
@@ -119,14 +118,12 @@ export const setWeather: RequestHandler<unknown, unknown, IWeather, unknown> = a
       feelsLikein,
       dewPointin,
       lastRain,
-      tz,
       date,
     })
-
+    console.log(newWeather)
     res.status(200).json(newWeather)
 
   } catch (err) {
     next(err)
   }
 }
-

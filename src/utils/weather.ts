@@ -22,7 +22,8 @@ export const weather = () => {
   })
   api.on('data', data => {
     console.log('==============================++++')
-    console.log(data.feelsLike)
+    console.log(new Date().toDateString())
+    console.log(data.device)
     const {
       dateutc,
       tempinf,
@@ -49,12 +50,11 @@ export const weather = () => {
       feelsLikein,
       dewPointin,
       lastRain,
-      tz,
       date,
-    } = data
+    } = data.device.lastData
 
   
-    fetch('http://localhost:3031/api/weather/', {
+    fetch('mongodb://localhost:27017/api/weather/', {
       method: 'POST',
       headers: {
       'Accept': 'application/json',
@@ -81,12 +81,11 @@ export const weather = () => {
       solarradiation,
       uv,
       batt_co2,
-      feelsLike: data.feelsLike,
+      feelsLike: feelsLike,
       dewPoint,
       feelsLikein: feelsLikein,
       dewPointin,
       lastRain,
-      tz,
       date,
     })
   })
@@ -96,6 +95,7 @@ export const weather = () => {
 }
 
 export const weatherApi = async () => {
+  console.log(process.env.NODE_ENV)
   console.log('weather api called...')
   return weather();
 }
