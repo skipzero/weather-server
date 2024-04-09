@@ -54,7 +54,7 @@ export const weather = () => {
     } = data.device.lastData
 
   
-    fetch('mongodb://localhost:27017/api/weather/', {
+    fetch('mongodb+srv://bfalcon510:GKkGLR2buBlT94vBfsclusterzed.uh8mopv.mongodb.net/?retryWrites=true&w=majority&appName=FSClusterZed', {
       method: 'POST',
       headers: {
       'Accept': 'application/json',

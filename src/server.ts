@@ -4,7 +4,7 @@ console.log(process.env.MONGODB_URI)
 const MONGODB_URI: any =  process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI_PROD : process.env.MONGODB_URI_DEV
 const PORT = process.env.PORT as string
 
-const weatherDB = mongoose.connect(MONGODB_URI, {
+mongoose.connect(MONGODB_URI, {
   dbName: 'weatherDB-oak',
 })
   .then(() =>{

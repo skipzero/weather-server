@@ -1,4 +1,3 @@
-
 import express, { NextFunction, Request, Response } from "express";
 import weatherRoutes from "./routes/weather";
 import notesRoutes from "./routes/notes";
@@ -9,7 +8,7 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import { requiresAuth } from "./middleware/auth";
 import dotenv from "dotenv"
-import { weatherApi } from "./utils/weather";
+import path from 'path'
 
 dotenv.config()
 
@@ -39,7 +38,7 @@ app.use(express.json());
 
 app.disable('x-powered-by');
 
- 
+// app.use(express.static('public'))
 // app.use('/', (req, res) => {
 //   res.status(200).send('roots')
 // })
@@ -48,7 +47,8 @@ app.use('/', weatherRoutes)
 app.use('/api/weather', weatherRoutes)
 app.use("/api/users", userRoutes);
 app.use("/api/notes", requiresAuth, notesRoutes);
-
+app.use('/public', express.static(path.join(__dirname, 'public')))
+console.log(__dirname + '/public')
 app.use((req, res, next) => {
     next(createHttpError(404, "Endpoint not found"));
 });
@@ -64,7 +64,5 @@ app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
     }
     res.status(statusCode).json({ error: errorMessage });
 });
-
-weatherApi()
 
 export default app;

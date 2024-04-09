@@ -58,7 +58,6 @@ interface IWeather {
   date: string,
 }
 
-
 export const setWeather: RequestHandler<unknown, unknown, IWeather, unknown> = async (req, res, next) => {
   const {
     dateutc,
@@ -88,8 +87,10 @@ export const setWeather: RequestHandler<unknown, unknown, IWeather, unknown> = a
     lastRain,
     date,
   } = req.body;
+
   console.log('===WEATHER CONTROLLER===')
   console.log(JSON.stringify(req.body, null, 2))
+  
   try {
 
     const newWeather = await Weather.create({

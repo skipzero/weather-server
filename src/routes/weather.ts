@@ -8,7 +8,7 @@ import {
 const router = Router();
 
 router.get('/', getWeather)
-router.get('/item/:id', getWeatherItem);
+router.get('/:id', getWeatherItem);
 
 router.post('/', setWeather);
 

@@ -96,3 +96,5 @@ export const getUsers: RequestHandler = async (req, res, next) => {
 //   .save().then((user) => user.toObject());
 // export const deleteUserById = (id: string) => User.findOneAndDelete({ _id: id});
 // export const updateUserById = (id: string, values: Record<string, any>) => User.findByIdAndUpdate({id, values})
+
+
