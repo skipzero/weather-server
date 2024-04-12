@@ -4,6 +4,10 @@ import createHttpError from "http-errors";
 import Weather from '../models/weather'
 import {assertIsDefined} from '../utils/assert';
 
+// export const start: RequestHandler = async (req:Request, res:Response, next:) => { 
+
+// }
+
 
 export const getWeather: RequestHandler = async (req, res, next) => {
 

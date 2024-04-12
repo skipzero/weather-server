@@ -9,6 +9,7 @@ import MongoStore from "connect-mongo";
 import { requiresAuth } from "./middleware/auth";
 import dotenv from "dotenv"
 import path from 'path'
+import weather from './utils/weather';
 
 dotenv.config()
 
@@ -48,7 +49,7 @@ app.use('/api/weather', weatherRoutes)
 app.use("/api/users", userRoutes);
 app.use("/api/notes", requiresAuth, notesRoutes);
 app.use('/public', express.static(path.join(__dirname, 'public')))
-console.log(__dirname + '/public')
+
 app.use((req, res, next) => {
     next(createHttpError(404, "Endpoint not found"));
 });

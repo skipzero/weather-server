@@ -2,6 +2,7 @@ import createHttpError from 'http-errors';
 import User from '../models/user';
 import { RequestHandler } from 'express';
 import bcrypt from 'bcrypt';
+
 interface SignupBody {
   username?: string,
   email?: string,
