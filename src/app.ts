@@ -9,7 +9,7 @@ import MongoStore from "connect-mongo";
 import { requiresAuth } from "./middleware/auth";
 import dotenv from "dotenv"
 import path from 'path'
-import weather from './utils/weather';
+import {weather} from './utils/weather';
 
 dotenv.config()
 
@@ -17,7 +17,7 @@ const secret = process.env.SESSION_SECRET as string;
 
 const app = express();
 
-const mongoUrl = process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI_PROD : process.env.MONGODB_URI_DEV;
+const mongoUrl = process.env.MONGODB_URI;
 
 
 app.use(morgan("dev"));
@@ -36,7 +36,7 @@ app.use(express.json());
      mongoUrl
    }),
  }));
-
+weather();
 app.disable('x-powered-by');
 
 // app.use(express.static('public'))

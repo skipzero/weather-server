@@ -1,7 +1,7 @@
 import app from './app'
 import mongoose from 'mongoose'
 console.log(process.env.MONGODB_URI)
-const MONGODB_URI: any =  process.env.NODE_ENV === 'production' ? process.env.MONGODB_URI_PROD : process.env.MONGODB_URI_DEV
+const MONGODB_URI: any =  process.env.MONGODB_URI;
 const PORT = process.env.PORT as string
 
 mongoose.connect(MONGODB_URI, {
