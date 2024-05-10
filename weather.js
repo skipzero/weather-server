@@ -3,7 +3,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator[ "throw" ](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
@@ -36,7 +36,7 @@ const weather = () => {
         console.log(new Date().toDateString());
         console.log(data.device);
         const { dateutc, tempinf, humidityin, baromrelin, baromabsin, tempf, humidity, winddir, windspeedmph, windgustmph, maxdailygust, hourlyrainin, eventrainin, dailyrainin, weeklyrainin, monthlyrainin, totalrainin, solarradiation, uv, batt_co2, feelsLike, dewPoint, feelsLikein, dewPointin, lastRain, date, } = data.device.lastData;
-        fetch('mongodb+srv://bfalcon510:GKkGLR2buBlT94vBfsclusterzed.uh8mopv.mongodb.net/?retryWrites=true&w=majority&appName=FSClusterZed', {
+        fetch(MONGODB_URI_DEV, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

@@ -1,9 +1,9 @@
 require('dotenv').config()
 import AmbientWeatherApi from 'ambient-weather-api'
-import {setWeather} from '../controllers/weather'  
+import { setWeather } from '../controllers/weather'
 
 // helper function
-function getName(device: any) {
+function getName(device) {
   return device.info.name
 }
 
@@ -55,11 +55,13 @@ export const weather = () => {
     } = data.device.lastData
 
 
-    fetch('mongodb:127.0.0.1:27017', {
+    fetch(process.env.MONGODB_URI_DEV, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
+        'email': process.env.EMAIL,
+        'password': process.env.PASSWORD,
       },
       body: JSON.stringify({
         dateutc,
@@ -98,5 +100,7 @@ export const weather = () => {
 export const weatherApi = async () => {
   console.log(process.env.NODE_ENV)
   console.log('weather api called...')
-  return weather();
+  setTimeout(() => {
+    weather()
+  }, 1000 * 60)
 }

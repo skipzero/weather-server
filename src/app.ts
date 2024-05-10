@@ -36,6 +36,8 @@ app.use(express.json());
      mongoUrl
    }),
  }));
+
+ console.log('Weather app online**')
 weatherApi();
 app.disable('x-powered-by');
 
