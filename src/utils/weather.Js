@@ -1,9 +1,8 @@
-require('dotenv').config()
+import 'dotenv/config'
 import AmbientWeatherApi from 'ambient-weather-api'
-import {setWeather} from '../controllers/weather'  
 
 // helper function
-function getName(device: any) {
+function getName (device){
   return device.info.name
 }
 
@@ -23,8 +22,7 @@ export const weather = () => {
   })
   api.on('data', data => {
     console.log('==============================++++')
-    console.log(new Date().toDateString())
-    console.log(data.device)
+    console.log(data.feelsLike)
     const {
       dateutc,
       tempinf,
@@ -51,52 +49,53 @@ export const weather = () => {
       feelsLikein,
       dewPointin,
       lastRain,
+      tz,
       date,
-    } = data.device.lastData
+    } = data
 
-
-    fetch('mongodb:127.0.0.1:27017', {
+  
+    fetch('http://localhost:3031/api/weather/', {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        dateutc,
-        tempinf,
-        humidityin,
-        baromrelin,
-        baromabsin,
-        tempf,
-        humidity,
-        winddir,
-        windspeedmph,
-        windgustmph,
-        maxdailygust,
-        hourlyrainin,
-        eventrainin,
-        dailyrainin,
-        weeklyrainin,
-        monthlyrainin,
-        totalrainin,
-        solarradiation,
-        uv,
-        batt_co2,
-        feelsLike: feelsLike,
-        dewPoint,
-        feelsLikein: feelsLikein,
-        dewPointin,
-        lastRain,
-        date,
-      })
+      dateutc,
+      tempinf,
+      humidityin,
+      baromrelin,
+      baromabsin,
+      tempf,
+      humidity,
+      winddir,
+      windspeedmph,
+      windgustmph,
+      maxdailygust,
+      hourlyrainin,
+      eventrainin,
+      dailyrainin,
+      weeklyrainin,
+      monthlyrainin,
+      totalrainin,
+      solarradiation,
+      uv,
+      batt_co2,
+      feelsLike,
+      dewPoint,
+      feelsLikein,
+      dewPointin,
+      lastRain,
+      tz,
+      date,
     })
+  })
     console.log('enddata....')
   })
   api.subscribe(apiKey)
 }
 
 export const weatherApi = async () => {
-  console.log(process.env.NODE_ENV)
   console.log('weather api called...')
   return weather();
 }

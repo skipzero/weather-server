@@ -96,7 +96,7 @@ export const setWeather: RequestHandler<unknown, unknown, IWeather, unknown> = a
   console.log(JSON.stringify(req.body, null, 2))
   
   try {
-
+    console.log('WEATHER-CONTROLLER\n\n\n', req.body);
     const newWeather = await Weather.create({
       dateutc,
       tempinf,
@@ -125,7 +125,7 @@ export const setWeather: RequestHandler<unknown, unknown, IWeather, unknown> = a
       lastRain,
       date,
     })
-    console.log(newWeather)
+    console.log('newWeather', newWeather)
     res.status(200).json(newWeather)
 
   } catch (err) {
