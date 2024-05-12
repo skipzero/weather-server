@@ -1,1 +1,1 @@
-declare module './utils/weather'
+declare module 'weather'
