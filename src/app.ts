@@ -9,7 +9,7 @@ import MongoStore from "connect-mongo";
 import { requiresAuth } from "./middleware/auth";
 import dotenv from "dotenv"
 import path from 'path'
-import {weatherApi} from './utils/weather';
+import weatherApi from './utils/weather';
 
 dotenv.config()
 
@@ -36,7 +36,7 @@ app.use(express.json());
      mongoUrl
    }),
  }));
-weatherApi();
+weatherApi;
 app.disable('x-powered-by');
 
 // app.use(express.static('public'))

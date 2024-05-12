@@ -6,7 +6,7 @@ function getName (device){
   return device.info.name
 }
 
-export const weather = () => {
+const weather = () => {
   const apiKey = process.env.API_KEY || 'Put your AW apiKey here'
   const api = new AmbientWeatherApi({
     apiKey,
@@ -95,7 +95,9 @@ export const weather = () => {
   api.subscribe(apiKey)
 }
 
-export const weatherApi = async () => {
+const weatherApi = async () => {
   console.log('weather api called...')
-  return weather();
+  return await weather();
 }
+
+export default weatherApi;
