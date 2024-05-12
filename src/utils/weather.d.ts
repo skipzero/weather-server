@@ -1,5 +1,5 @@
-declare class Weather {
-
+declare class WeatherApi {
+    
 }
 
-export = Weather;
+export default WeatherApi;

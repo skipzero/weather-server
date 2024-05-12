@@ -36,7 +36,7 @@ app.use(express.json());
      mongoUrl
    }),
  }));
-weatherApi;
+weatherApi();
 app.disable('x-powered-by');
 
 // app.use(express.static('public'))
