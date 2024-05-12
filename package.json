@@ -9,7 +9,8 @@
     "test": "",
     "lint": "eslint . --ext .ts",
     "dev": "nodemon ./src/server.ts",
-    "watch": "npx tsc -w "
+    "watch": "npx tsc -w ",
+    "deploy": "npx tsc && cd ./dist && scp -r ./* bunny:~/website"
   },
   "repository": {
     "type": "git",

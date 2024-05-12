@@ -1,10 +1,10 @@
 import app from './app'
 import mongoose from 'mongoose'
-
-const MONGODB_URI = process.env.MONGODB_URI as string 
+console.log(process.env.MONGODB_URI)
+const MONGODB_URI: any =  process.env.MONGODB_URI;
 const PORT = process.env.PORT as string
 
-const weatherDB = mongoose.connect(MONGODB_URI, {
+mongoose.connect(MONGODB_URI, {
   dbName: 'weatherDB-oak',
 })
   .then(() =>{

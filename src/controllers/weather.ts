@@ -4,6 +4,10 @@ import createHttpError from "http-errors";
 import Weather from '../models/weather'
 import {assertIsDefined} from '../utils/assert';
 
+// export const start: RequestHandler = async (req:Request, res:Response, next:) => { 
+
+// }
+
 
 export const getWeather: RequestHandler = async (req, res, next) => {
 
@@ -17,7 +21,7 @@ export const getWeather: RequestHandler = async (req, res, next) => {
 }
 
 export const getWeatherItem: RequestHandler = async (req, res, next) => {
-  const wId = req.params.weatherId;  
+  const wId = req.params.id;  
   try {
     if (!mongoose.isValidObjectId(wId)) {
       throw createHttpError(400, 'Invalid weather ID')
@@ -55,10 +59,8 @@ interface IWeather {
   feelsLikein: number,
   dewPointin: number,
   lastRain: string,
-  tz: string,
   date: string,
 }
-
 
 export const setWeather: RequestHandler<unknown, unknown, IWeather, unknown> = async (req, res, next) => {
   const {
@@ -87,10 +89,12 @@ export const setWeather: RequestHandler<unknown, unknown, IWeather, unknown> = a
     feelsLikein,
     dewPointin,
     lastRain,
-    tz,
     date,
   } = req.body;
 
+  console.log('===WEATHER CONTROLLER===')
+  console.log(JSON.stringify(req.body, null, 2))
+  
   try {
     console.log('WEATHER-CONTROLLER\n\n\n', req.body);
     const newWeather = await Weather.create({
@@ -119,7 +123,6 @@ export const setWeather: RequestHandler<unknown, unknown, IWeather, unknown> = a
       feelsLikein,
       dewPointin,
       lastRain,
-      tz,
       date,
     })
     console.log('newWeather', newWeather)
@@ -129,4 +132,3 @@ export const setWeather: RequestHandler<unknown, unknown, IWeather, unknown> = a
     next(err)
   }
 }
-

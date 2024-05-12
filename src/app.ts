@@ -1,4 +1,3 @@
-
 import express, { NextFunction, Request, Response } from "express";
 import weatherRoutes from "./routes/weather";
 import notesRoutes from "./routes/notes";
@@ -9,13 +8,17 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import { requiresAuth } from "./middleware/auth";
 import dotenv from "dotenv"
-import { weatherApi } from "./utils/weather";
+import path from 'path'
+import {weatherApi} from './utils/weather';
 
 dotenv.config()
 
 const secret = process.env.SESSION_SECRET as string;
 
 const app = express();
+
+const mongoUrl = process.env.MONGODB_URI;
+
 
 app.use(morgan("dev"));
 
@@ -30,13 +33,13 @@ app.use(express.json());
    },
    rolling: true,
    store: MongoStore.create({
-     mongoUrl: process.env.MONGODB_URI,
+     mongoUrl
    }),
  }));
-
+weatherApi();
 app.disable('x-powered-by');
 
- 
+// app.use(express.static('public'))
 // app.use('/', (req, res) => {
 //   res.status(200).send('roots')
 // })
@@ -45,6 +48,7 @@ app.use('/', weatherRoutes)
 app.use('/api/weather', weatherRoutes)
 app.use("/api/users", userRoutes);
 app.use("/api/notes", requiresAuth, notesRoutes);
+app.use('/public', express.static(path.join(__dirname, 'public')))
 
 app.use((req, res, next) => {
     next(createHttpError(404, "Endpoint not found"));
@@ -61,7 +65,5 @@ app.use((error: unknown, req: Request, res: Response, next: NextFunction) => {
     }
     res.status(statusCode).json({ error: errorMessage });
 });
-
-weatherApi()
 
 export default app;

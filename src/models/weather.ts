@@ -23,9 +23,10 @@ export const weatherSchema: Schema = new Schema({
   batt_co2: {type: Number},
   feelslike:{type: Number},
   dewPoint:{type: Number},
-  feelslinein: {type: Number},
+  feelslikein: {type: Number},
   dewpointin: {type: Number},
   lastRain:{type: Date},
+  date:{type: Date},
 }, { 
   collection: 'weather',
   timestamps: true,
