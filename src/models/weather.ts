@@ -1,4 +1,4 @@
-import mongoose, { InferSchemaType, model, Schema} from 'mongoose';
+import { InferSchemaType, model, Schema} from 'mongoose';
 
 export const weatherSchema: Schema = new Schema({
   dateutc: {type: Date, index: true},

@@ -1,8 +1,8 @@
-require('dotenv').config()
+import 'dotenv/config'
 import AmbientWeatherApi from 'ambient-weather-api'
 
 // helper function
-function getName (device: any) {
+function getName (device){
   return device.info.name
 }
 
@@ -81,9 +81,9 @@ export const weather = () => {
       solarradiation,
       uv,
       batt_co2,
-      feelsLike: data.feelsLike,
+      feelsLike,
       dewPoint,
-      feelsLikein: feelsLikein,
+      feelsLikein,
       dewPointin,
       lastRain,
       tz,
