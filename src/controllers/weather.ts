@@ -25,7 +25,7 @@ export const getWeatherItem: RequestHandler = async (req, res, next) => {
   console.log('ID:', _id)
   try {
     if (!mongoose.isValidObjectId(_id)) {
-      throw createHttpError(400, 'Invalid weather ID')
+      throw createHttpError(400, 'Invalid weather ID', _id)
     }
     const weatherItems = await Weather.findById({_id}).exec();
     res.status(200).json(weatherItems)
