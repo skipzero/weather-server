@@ -2,7 +2,7 @@ import { RequestHandler } from "express";
 import mongoose from "mongoose";
 import createHttpError from "http-errors";
 import Weather from '../models/weather'
-import {assertIsDefined} from '../utils/assert';
+// import {assertIsDefined} from '../utils/assert';
 
 // export const start: RequestHandler = async (req:Request, res:Response, next:) => { 
 
@@ -21,14 +21,16 @@ export const getWeather: RequestHandler = async (req, res, next) => {
 }
 
 export const getWeatherItem: RequestHandler = async (req, res, next) => {
-  const wId = req.params.id;  
+  const _id = req.params.id;
+  console.log('ID:', _id)
   try {
-    if (!mongoose.isValidObjectId(wId)) {
+    if (!mongoose.isValidObjectId(_id)) {
       throw createHttpError(400, 'Invalid weather ID')
     }
-    const weatherItems = await Weather.findOne({wId}).exec();
+    const weatherItems = await Weather.findById({_id}).exec();
     res.status(200).json(weatherItems)
   } catch (err) {
+    console.error(`Error: ${err}`)
     next(err)
   }
 }
