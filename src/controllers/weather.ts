@@ -21,12 +21,14 @@ export const getWeather: RequestHandler = async (req, res, next) => {
 }
 
 export const getWeatherItem: RequestHandler = async (req, res, next) => {
-  const _id = req.params.id;
-
-  console.log('ID:', req.params)
+  let _id = req.params.id;
+  if (_id.length !==  24) {
+    _id = ''
+  }
+  console.log('ID:', _id)
   try {
     if (!mongoose.isValidObjectId(_id)) {
-      throw createHttpError(400, 'Invalid weather ID', _id)
+      throw createHttpError(400, `Invalid weather ID ${_id}`)
     }
     const weatherItems = await Weather.findById({_id}).exec();
     res.status(200).json(weatherItems)
@@ -135,3 +137,6 @@ export const setWeather: RequestHandler<unknown, unknown, IWeather, unknown> = a
     next(err)
   }
 }
+
+
+

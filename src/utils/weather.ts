@@ -97,10 +97,11 @@ export const weather = () => {
 
 const weatherApi = async () => {
   setTimeout(() => {
-    weatherApi();
+    console.log('setTimeout fired...')
+    weather();
+    return weatherApi();
   }, 1000 * 60 * 3)
   console.log('weather api called...')
-  return weatherApi();
 }
 
 export default weatherApi;
